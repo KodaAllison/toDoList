@@ -53,10 +53,36 @@ function displayTasks(){
         });
         todoList.appendChild(p);
     });
+    todoCount.textContent = todo.length;
+}
+
+function editTask(index){
+    const todoItem = document.getElementById(`todo-${index}`);
+    const existingText = todo[index].text;
+    const inputElement = document.createElement("input");
+    
+    inputElement.value = existingText;
+    todoItem.replaceWith(inputElement);
+    inputElement.focus();
+
+    inputElement.addEventListener("blur", function () {
+        const newItem = inputElement.value.trim();
+        if (newItem){
+            todo[index].text = newItem;
+            saveToLocalStorage();
+            displayTasks();
+        }
+    });
 }
 
 function toggleTask(index){
     todo[index].disabled = !todo[index].disabled;
+    saveToLocalStorage();
+    displayTasks();
+}
+
+function deleteAllTasks(){
+    todo = [];
     saveToLocalStorage();
     displayTasks();
 }
