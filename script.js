@@ -49,16 +49,20 @@ function displayTasks(){
             toggleTask(index);
         });
         const l = document.createElement("l");
-        l.innerHTML`
+        l.innerHTML=`
         <select name="priorities" id="pri-${index}">
+            <option selected = "def">Priority</option>
             <option value="1">High</option>
             <option value="2">Medium</option>
             <option value="3">Low</option>
         </select>
         <l id="select-${index} onclick="editTaskPri(${index})"></l>
         `;
-        l.addEventListener()
+        l.addEventListener("change", () => {
+            editTaskPri(index)
+        } )
         todoList.appendChild(p);
+        todoList.appendChild(l)
     });
     todoCount.textContent = todo.length;
 }
