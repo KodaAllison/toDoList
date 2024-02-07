@@ -26,15 +26,12 @@ function addTask(){
         todo.push({
             text: newTask, 
             disabled: false,
+            priority: "3",
         })
         saveToLocalStorage();
         todoInput.value = "";
         displayTasks();
     }
-}
-
-function deleteAllTasks(){
-
 }
 
 function displayTasks(){
@@ -44,19 +41,38 @@ function displayTasks(){
         p.innerHTML = `
         <div class = "todo-container">
             <input type="checkbox" class="todo-checkbox" id="input-${index}" ${item.disabled ? "checked" : ""}>
-            <p id="todo-${index}" class="${item.disabled ? "disabled" : ""}" onclick="editTask(${index})">${item.text}
+            <p id="todo-${index}" class="${item.disabled ? "disabled" : ""}" onclick="editTaskName(${index})">${item.text}
             </p>
-        </div>
+        </div>  
         `;
         p.querySelector(".todo-checkbox").addEventListener("change", () => {
             toggleTask(index);
         });
+        const l = document.createElement("l");
+        l.innerHTML`
+        <select name="priorities" id="pri-${index}">
+            <option value="1">High</option>
+            <option value="2">Medium</option>
+            <option value="3">Low</option>
+        </select>
+        <l id="select-${index} onclick="editTaskPri(${index})"></l>
+        `;
+        l.addEventListener()
         todoList.appendChild(p);
     });
     todoCount.textContent = todo.length;
 }
 
-function editTask(index){
+function editTaskPri(index){
+    const todoItem = document.getElementById(`todo-${index}`);
+    const pri = document.getElementById(`pri-${index}`);
+    const value = pri.value;
+    todo[index].priority = value;
+    saveToLocalStorage();
+    displayTasks();
+}
+
+function editTaskName(index){
     const todoItem = document.getElementById(`todo-${index}`);
     const existingText = todo[index].text;
     const inputElement = document.createElement("input");
