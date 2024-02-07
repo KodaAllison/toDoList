@@ -36,6 +36,11 @@ function addTask(){
 
 function displayTasks(){
     todoList.innerHTML = "";
+    todo.sort( (p1, p2) => {
+        if (p1.priority < p2.priority) return -1;
+        if (p1.priority > p2.priority) return 1;
+        return 0;
+      });
     todo.forEach((item, index) => {
         const p = document.createElement("p");
         p.innerHTML = `
@@ -56,15 +61,19 @@ function displayTasks(){
             <option value="2">Medium</option>
             <option value="3">Low</option>
         </select>
-        <l id="select-${index} onclick="editTaskPri(${index})"></l>
         `;
         l.addEventListener("change", () => {
             editTaskPri(index)
+            displayTasks()
         } )
         todoList.appendChild(p);
         todoList.appendChild(l)
     });
     todoCount.textContent = todo.length;
+}
+
+function sortTasks(){
+
 }
 
 function editTaskPri(index){
