@@ -72,10 +72,6 @@ function displayTasks(){
     todoCount.textContent = todo.length;
 }
 
-function sortTasks(){
-
-}
-
 function editTaskPri(index){
     const todoItem = document.getElementById(`todo-${index}`);
     const pri = document.getElementById(`pri-${index}`);
